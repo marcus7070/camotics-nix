@@ -5,6 +5,7 @@
   , scons
   , openssl
   , v8_3_14_5
+  , rsync
 }:
 
 stdenv.mkDerivation rec {
@@ -20,6 +21,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     scons
+    rsync
   ];
 
   buildInputs = [
@@ -27,9 +29,11 @@ stdenv.mkDerivation rec {
     v8_3_14_5
   ];
 
-  postInstall = ''
+  # dev wants to access everything here in the camotics program
+  # there is way too much non-standard stuff here to do a proper install, just copy the lot to store.
+  installPhase = ''
     mkdir $out/complete
-    cp -r ./* $out/complete
+    rsync -r --exclude=*.pyc ./ $out/
   '';
 
   meta = with lib; {

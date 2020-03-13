@@ -11,9 +11,11 @@
   , pkgconfig
   , snappy
   , dxflib
+  , wrapQtAppsHook
+  , libyaml
 }:
 
-mkDerivationWith stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "camotics";
   # latest release uses hardcoded directories, master has a fix, so use master
   rev = "7901c271f472db6726738c445322cc9a3125f65c";
@@ -36,12 +38,14 @@ mkDerivationWith stdenv.mkDerivation rec {
     pkgconfig
     snappy
     dxflib
+    wrapQtAppsHook
+    libyaml
   ];
 
-  installFlags = "install_prefix=${placeholder "out"}/local";
+  installFlags = "install_prefix=${placeholder "out"}";
 
   preBuild = ''
-    export CBANG_HOME=${cbang}/complete
+    export CBANG_HOME=${cbang}
     export QT5DIR=${qt5Full}
   '';
 
