@@ -1,6 +1,7 @@
 { 
   lib
-  , mkDerivation
+  , mkDerivationWith
+  , stdenv
   , fetchFromGitHub
   , scons
   , cbang
@@ -8,17 +9,21 @@
   , v8
   , six
   , pkgconfig
+  , snappy
+  , dxflib
 }:
 
-mkDerivation rec {
+mkDerivationWith stdenv.mkDerivation rec {
   pname = "camotics";
-  version = "v1.2.0";
+  # latest release uses hardcoded directories, master has a fix, so use master
+  rev = "7901c271f472db6726738c445322cc9a3125f65c";
+  version = "git-${lib.substring 0 8 rev}";
 
   src = fetchFromGitHub {
     owner = "CauldronDevelopmentLLC";
     repo = "CAMotics";
-    rev = version;
-    sha256 = "1f84cv72ydcanjfm5i011vwjn1q4wscynpydr8hihzyw07fr7y8a";
+    inherit rev;
+    sha256 = "00ggg7bj1g0v0j6chywzmf6swhbpqcx91qdpgqi23g4yiijm5az9";
   };
 
   nativeBuildInputs = [ scons ];
@@ -29,10 +34,15 @@ mkDerivation rec {
     v8
     six
     pkgconfig
+    snappy
+    dxflib
   ];
+
+  installFlags = "install_prefix=${placeholder "out"}/local";
 
   preBuild = ''
     export CBANG_HOME=${cbang}/complete
+    export QT5DIR=${qt5Full}
   '';
 
   meta = with lib; {

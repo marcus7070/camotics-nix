@@ -12,6 +12,6 @@ self: super: {
   cbang = super.callPackage ./cbang { };
   camotics = super.libsForQt5.callPackage ./camotics { 
     inherit (self.pythonPackages) six; 
-    stdenv = self.gcc5Stdenv; 
+    stdenv = self.gcc6Stdenv; 
   };
 }
