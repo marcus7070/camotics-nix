@@ -13,4 +13,4 @@ Nix expression, overlay and derivations loosely based on [this](https://www.redd
 
 ## Merge to nixpkgs?
 
-I don't think this is suitable for nixpkgs. `c!` in particular requires the whole build directory to be copied to the store, and it contains the complete libyaml package and two copies of it's headers plus a few other non-standard things. I also needed to build `c!` with GCC5 and CAMotics with GCC6 to avoid build errors. But if someone from NixOS with merge permission says this could be acceptable, I'm happy to work on a PR for it.
+I don't think this is suitable for nixpkgs. `c!` in particular requires the whole build directory to be copied to the store, and it contains the complete libyaml package and two copies of it's headers plus a few other non-standard things. I also needed to build `c!` with GCC5 and CAMotics with GCC6 to avoid build errors. Gyp has been removed from nixpkgs and would have to be re-added I think. CAMotics requires an older version of v8 than current nixpkgs. But if someone from NixOS with merge permission says this could be acceptable, I'm happy to work on a PR for it.
