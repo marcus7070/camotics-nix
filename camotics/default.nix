@@ -1,6 +1,5 @@
 { 
   lib
-  , mkDerivationWith
   , stdenv
   , fetchFromGitHub
   , scons
