@@ -1,6 +1,12 @@
 # camotics-nix
 Nix expressions for CAMotics
 
+## Current status
+
+**I can no longer get this to work.** I've spent days trying to debug it, now I've given up and run a Debian VM for Camotics. I think it's some kind of graphics driver problem, because I can get an old NixOS generation to work, but not a current generation. ie. binaries compiled in a current generation do not work in that environment, but the same binaries work in an older generation. But the generations have the same Mesa versions, same Wayland versions, and I swear the `strace -f` output from working/not working is identical apart from printed error messages.
+
+---
+
 This whole process probably could have been simplified by checking out an old nixpkgs, so that all the packages are in a similar shape to the Debian that CAMotics expects to be built on. But of course I didn't notice that before I started this, so I've done it the hard way.
 
 This needs a recent nixpkgs, after [this commit](https://github.com/NixOS/nixpkgs/commit/f79fd2e826dd95b3b64839d3e0bec8ae1dfab17e) was merged, in order for `wrapQtAppsHook` to be available. Release 19.09 and later should do.
